@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+<!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+<div class="container py-5">
+
+    <!-- Tabs -->
+    <div class="text-center mb-4">
+        <button class="tab-btn active" onclick="showTab('all', this)">All</button>
+        {% for i in list %}
+        <button class="tab-btn" onclick="showTab('tab{{ forloop.counter }}', this)">{{ i.Category_name}}</button>
+        {% endfor %}
+   
+    </div>
+
+    <!-- Tab Content -->
+   <!-- All Tab -->
+<div id="all" class="tab-content">
+    <div class="row">
+        {% for j in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card card-custom">
+                <img src="/media/{{ j.Image }}" class="w-100">
+                <div class="p-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ j.Item_name }}</h5>
+        <span class=" fw-bold">Price : {{ j.Price }}/-</span>
+    </div>
+    <p class="mt-2">{{ j.description }}</p>
+</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% for i in list %}
+<div id="tab{{ forloop.counter }}" class="tab-content" style="display:none;">
+    <div class="row">
+        {% for item in items %}
+            {% if item.Category.id == i.id %}
+            <div class="col-md-4 mb-4">
+                <div class="card card-custom">
+                    <img src="/media/{{ item.Image }}" class="w-100">
+                    <div class="p-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ item.Item_name }}</h5>
+       <span class=" fw-bold">Price : {{ item.Price }}/-</span>
+    </div>
+    <p class="mt-2">{{ item.description }}</p>
+</div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+  
+  
+
+</div>
+
+
+
+
+{% endblock main %}

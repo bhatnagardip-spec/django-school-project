@@ -1,0 +1,201 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5">
+        <div class="owl-carousel header-carousel position-relative">
+             {% for sli in slider %}
+            <div class="owl-carousel-item position-relative">
+               
+                <img class="img-fluid" src="/media/{{ sli.Image }}" alt="" style="height:650px;">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);height:300px;">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                
+                                <h1 class="display-3 text-white animated slideInDown">{{ sli.Title }}</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">{{ sli.description }}</p>
+                                <a href="{% url 'About' %}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <a href="{% url 'Contact' %}" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+           {% endfor %}
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                            <h5 class="mb-3">Skilled Instructors</h5>
+                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                            <h5 class="mb-3">Online Classes</h5>
+                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-home text-primary mb-4"></i>
+                            <h5 class="mb-3">Home Projects</h5>
+                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                            <h5 class="mb-3">Book Library</h5>
+                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+    <!-- About Start -->
+      <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                {% for i in data %}
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                        <img class="img-fluid position-absolute w-100 h-100" src="/media/{{ i.Image }}" alt="" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
+                    <h1 class="mb-4">Welcome to eLEARNING</h1>
+                    <p class="mb-4" style="text-align:justify;">{{ i.Description }}</p>
+                    
+                  
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+   
+    <!-- Categories Start -->
+
+
+    <!-- Courses Start -->
+    <div class="container py-5">
+  <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
+                <h1 class="mb-5">Courses Categories</h1>
+            </div>
+    <!-- Tabs -->
+    <div class="text-center mb-4">
+        <button class="tab-btn active" onclick="showTab('all', this)">All</button>
+        {% for i in list %}
+        <button class="tab-btn" onclick="showTab('tab{{ forloop.counter }}', this)">{{ i.Category_name}}</button>
+        {% endfor %}
+   
+    </div>
+
+    <!-- Tab Content -->
+   <!-- All Tab -->
+<div id="all" class="tab-content">
+    <div class="row">
+        {% for j in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card card-custom">
+                <img src="/media/{{ j.Image }}" class="w-100">
+                <div class="p-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ j.Item_name }}</h5>
+        <span class=" fw-bold">Price : {{ j.Price }}/-</span>
+    </div>
+    <p class="mt-2">{{ j.description }}</p>
+</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% for i in list %}
+<div id="tab{{ forloop.counter }}" class="tab-content" style="display:none;">
+    <div class="row">
+        {% for item in items %}
+            {% if item.Category.id == i.id %}
+            <div class="col-md-4 mb-4">
+                <div class="card card-custom">
+                    <img src="/media/{{ item.Image }}" class="w-100">
+                    <div class="p-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ item.Item_name }}</h5>
+       <span class=" fw-bold">Price : {{ item.Price }}/-</span>
+    </div>
+    <p class="mt-2">{{ item.description }}</p>
+</div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+  
+  
+
+</div>
+
+
+   
+
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-primary px-3">Testimonial</h6>
+                <h1 class="mb-5">Our Students Say!</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel position-relative">
+                {% for test in testimonial %}
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="/media/{{ test.Image }}" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">{{ test.name }}</h5>
+                   
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">{{ test.description }}</p>
+                    </div>
+                </div>
+              {% endfor %}
+               
+           
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+        
+
+   {% endblock main %}
